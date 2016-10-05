@@ -3,14 +3,18 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Authors;
+use AppBundle\Entity\Books;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 
 class MojController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $books = $this->getDoctrine()->getManager()
+        $books = $this->getDoctrine()
             ->getRepository('AppBundle:Books')
             ->findAll();
 
@@ -34,9 +38,37 @@ class MojController extends Controller
         return $this->render('@App/Moj/get.html.twig', ['book' => $book]);
     }
 
-    public function addAction()
+    public function addAction(Request $request)
     {
-        return $this->render('@App/Moj/add.html.twig');
+        $author = $this->getDoctrine()->getRepository('AppBundle:Authors')->find(1);
+        $book = new Books();
+        $book->setAuthor($author);
+        $book->setCreateAt(new \DateTime('now'));
+        $book->setModifiedAt(new \DateTime('now'));
+
+        $Form = $this->createFormBuilder($book)
+            ->add('title', TextType::class, ['attr' => ['class' => 'form-control']])
+            ->add('description', TextType::class, ['attr' => ['class' => 'form-control']])
+            ->add('submit', SubmitType::class, ['label' => 'Save', 'attr' => ['class' => 'btn btn-primary']])
+            ->getForm();
+
+        $Form->handleRequest($request);
+
+        if ($Form->isSubmitted() && $Form->isValid()) {
+            $book->setTitle($Form['title']->getData());
+            $book->setDescription($Form['description']->getData());
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($book);
+            $em->flush();
+
+            $this->addFlash('success', 'Rekord dodany');
+
+            return $this->redirectToRoute('moj');
+        }
+
+        return $this->render('@App/Moj/add.html.twig', ['form' => $Form->createView()]);
     }
 
     public function deleteAction($id)
