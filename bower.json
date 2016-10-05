@@ -4,6 +4,10 @@
   "authors": [
     "Marek Ćwikliński <marek.cwiklinski@egm.pl>"
   ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.0"
+  },
   "description": "",
   "main": "",
   "license": "MIT",
