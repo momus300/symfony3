@@ -1,0 +1,19 @@
+moj:
+   path:      /
+   defaults:  { _controller: AppBundle:Moj:index }
+
+edit:
+  path:      /edit
+  defaults:  { _controller: AppBundle:Moj:edit }
+
+delete:
+  path:      /delete/{id}
+  defaults:  { _controller: AppBundle:Moj:delete }
+
+add:
+  path:      /add
+  defaults:  { _controller: AppBundle:Moj:add }
+
+get:
+  path:      /get
+  defaults:  { _controller: AppBundle:Moj:get }

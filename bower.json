@@ -1,0 +1,17 @@
+{
+  "name": "symfony3",
+  "homepage": "https://github.com/momus300/symfony3",
+  "authors": [
+    "Marek Ćwikliński <marek.cwiklinski@egm.pl>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,7 +1,2 @@
-homepage:
-   path:      /
-   defaults:  { _controller: AppBundle:Default:index }
-
 moj:
-  path:      /moj
-  defaults:  { _controller: AppBundle:Moj:index }
+    resource: "@AppBundle/Resources/config/routing.yml"
