@@ -3,7 +3,7 @@ moj:
    defaults:  { _controller: AppBundle:Moj:index }
 
 edit:
-  path:      /edit
+  path:      /edit/{id}
   defaults:  { _controller: AppBundle:Moj:edit }
 
 delete:
@@ -15,5 +15,5 @@ add:
   defaults:  { _controller: AppBundle:Moj:add }
 
 get:
-  path:      /get
+  path:      /get/{id}
   defaults:  { _controller: AppBundle:Moj:get }

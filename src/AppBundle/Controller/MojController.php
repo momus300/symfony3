@@ -10,8 +10,15 @@ class MojController extends Controller
 {
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('AppBundle:Moj:index.html.twig');
+        $books = $this->getDoctrine()->getManager()
+            ->getRepository('AppBundle:Books')
+            ->findAll();
+
+        if (!$books) {
+            throw $this->createNotFoundException('No books found');
+        }
+
+        return $this->render('AppBundle:Moj:index.html.twig', ['books' => $books]);
     }
 
     public function editAction()
@@ -19,9 +26,12 @@ class MojController extends Controller
         return $this->render('@App/Moj/edit.html.twig');
     }
 
-    public function getAction()
+    public function getAction($id)
     {
-        return $this->render('@App/Moj/get.html.twig');
+        $book = $this->getDoctrine()->getManager()
+            ->getRepository('AppBundle:Books')
+            ->find($id);
+        return $this->render('@App/Moj/get.html.twig', ['book' => $book]);
     }
 
     public function addAction()

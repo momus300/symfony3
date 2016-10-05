@@ -1,13 +1,13 @@
 <?php
 
-namespace AppBundle\Entity\Moj;
+namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Books
  *
- * @ORM\Table(name="moj\books")
+ * @ORM\Table(name="books")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Moj\BooksRepository")
  */
 class Books
@@ -29,18 +29,11 @@ class Books
     private $title;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="author", type="string", length=255)
-     */
-    private $author;
-
-    /**
      * @var \DateTime
      *
-     * @ORM\Column(name="creatAt", type="datetime")
+     * @ORM\Column(name="createAt", type="datetime")
      */
-    private $creatAt;
+    private $createAt;
 
     /**
      * @var \DateTime
@@ -55,6 +48,12 @@ class Books
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Authors", inversedBy="books")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    private $author;
 
 
     /**
@@ -91,53 +90,6 @@ class Books
         return $this->title;
     }
 
-    /**
-     * Set author
-     *
-     * @param string $author
-     *
-     * @return Books
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * Get author
-     *
-     * @return string
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * Set creatAt
-     *
-     * @param \DateTime $creatAt
-     *
-     * @return Books
-     */
-    public function setCreatAt($creatAt)
-    {
-        $this->creatAt = $creatAt;
-
-        return $this;
-    }
-
-    /**
-     * Get creatAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatAt()
-    {
-        return $this->creatAt;
-    }
 
     /**
      * Set modifiedAt
@@ -186,5 +138,52 @@ class Books
     {
         return $this->description;
     }
-}
 
+    /**
+     * Set createAt
+     *
+     * @param \DateTime $createAt
+     *
+     * @return Books
+     */
+    public function setCreateAt($createAt)
+    {
+        $this->createAt = $createAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createAt
+     *
+     * @return \DateTime
+     */
+    public function getCreateAt()
+    {
+        return $this->createAt;
+    }
+
+    /**
+     * Set author
+     *
+     * @param \id $author
+     *
+     * @return Books
+     */
+    public function setAuthor( $author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \id
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+}
