@@ -6,6 +6,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Authors;
 use AppBundle\Entity\Books;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,21 +41,22 @@ class MojController extends Controller
 
     public function addAction(Request $request)
     {
-        $author = $this->getDoctrine()->getRepository('AppBundle:Authors')->find(1);
+        $authors = $this->getDoctrine()->getRepository('AppBundle:Authors')->findAll();
         $book = new Books();
-        $book->setAuthor($author);
         $book->setCreateAt(new \DateTime('now'));
         $book->setModifiedAt(new \DateTime('now'));
 
         $Form = $this->createFormBuilder($book)
             ->add('title', TextType::class, ['attr' => ['class' => 'form-control']])
             ->add('description', TextType::class, ['attr' => ['class' => 'form-control']])
+            ->add('author', ChoiceType::class, ['choices'=> [$authors], 'attr' => ['class' => 'form-control']])
             ->add('submit', SubmitType::class, ['label' => 'Save', 'attr' => ['class' => 'btn btn-primary']])
             ->getForm();
 
         $Form->handleRequest($request);
 
         if ($Form->isSubmitted() && $Form->isValid()) {
+            $book->setAuthor($Form['title']->getData());
             $book->setTitle($Form['title']->getData());
             $book->setDescription($Form['description']->getData());
 

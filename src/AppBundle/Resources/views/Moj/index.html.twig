@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% for flash_message in app.session.flashBag) %}
+    {% for flash_message in app.session.flashBag %}
         <div class="flash-notice">
             {{ flash_message }}
         </div>
