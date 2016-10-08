@@ -1,0 +1,7 @@
+parameters:
+  moj.przekazujemy: mojMegaTekst123
+
+services:
+  moj.losujemy:
+    class:     AppBundle\Services\Losujemy
+    arguments: ['%moj.przekazujemy%']

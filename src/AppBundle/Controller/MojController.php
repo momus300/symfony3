@@ -41,6 +41,15 @@ class MojController extends Controller
 
     public function addAction(Request $request)
     {
+        $moj = $this->get('moj.losujemy');
+        echo $moj->getLiczba()."\n";
+
+        $moj = $this->get('moj.losujemy123');
+        echo $moj->getLiczba();
+
+
+        die();
+
         $authors = $this->getDoctrine()->getRepository('AppBundle:Authors')->findAll();
         $book = new Books();
         $book->setCreateAt(new \DateTime('now'));
